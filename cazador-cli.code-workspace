@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.defaultInterpreterPath": "C:\\Program Files\\Python312\\python.exe",
+		"python.analysis.extraPaths": ["${workspaceFolder}/src"]
+	}
+}

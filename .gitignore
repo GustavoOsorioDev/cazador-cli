@@ -1,0 +1,16 @@
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Proyecto
+db/cazador.db
+.env
+
+# MacOS
+.DS_Store
