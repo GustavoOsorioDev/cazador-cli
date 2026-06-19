@@ -42,7 +42,7 @@ python src/main.py
 ## 🔐 Obtener API Key (500 Créditos Gratis)
 
 Para activar el **Modo IA**, sigue estos pasos:
-1. Regístrate en [gustavo-hq.com](https://gustavo-hq.com) mediante **GitHub OAuth**.
+1. Regístrate en [hq.gustavoosorio.dev](https://hq.gustavoosorio.dev) mediante **GitHub OAuth**.
 2. Copia tu `CAZADOR_API_KEY` desde el dashboard.
 3. Crea un archivo `.env` en la raíz de este proyecto y pega tu llave:
    ```env
