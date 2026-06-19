@@ -18,7 +18,7 @@ flowchart TD
     
     G -- No --> H{¿Error 429?}
     H -- Sí --> H1[Pausa de seguridad 60s]
-    H -- No --> H2[Mostrar Error]
+    H -- No --> H2[Skip silencioso]
     H1 --> D
     H2 --> I
     
@@ -52,7 +52,8 @@ flowchart TD
     W -- No --> Y[Mostrar mensaje de radar vacío]
     
     Y --> Z([Fin del Proceso])
-    X --> Z
+    X --> X2[Imprimir Sumario de Links]
+    X2 --> Z
 
     %% Estilos recomendados para el diagrama
     classDef init endObj fill:#f5f5f5,stroke:#333,stroke-width:2px;

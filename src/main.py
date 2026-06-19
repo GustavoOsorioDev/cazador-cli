@@ -95,10 +95,13 @@ def fetch_reddit_rss(subreddit: str) -> List[Oportunidad]:
         resultados = []
         
         for entry in root.findall("atom:entry", ns)[:10]:
-            titulo = entry.find("atom:title", ns).text
+            title_node = entry.find("atom:title", ns)
+            if title_node is None or title_node.text is None:
+                continue
+            titulo = title_node.text
             enlace = entry.find("atom:link", ns).get("href")
             content = entry.find("atom:content", ns)
-            dolor_snippet = content.text[:200] if content is not None else ""
+            dolor_snippet = content.text[:200] if (content is not None and content.text is not None) else ""
             
             # El score se calcula con datos crudos ANTES de construir el modelo.
             # El modelo recibe datos ya validados — el contrato se respeta desde el origen.
@@ -123,7 +126,7 @@ def fetch_reddit_rss(subreddit: str) -> List[Oportunidad]:
         return []
 
 def render_ui():
-    recent = db.obtener_recientes(10)
+    recent = db.obtener_mejores(10)
     if not recent:
         return Panel("[yellow]Buscando señales de dolor en la red...[/]", border_style="dim")
         
@@ -161,7 +164,7 @@ if __name__ == "__main__":
     console.print(render_ui())
     
     # --- SUMARIO DE INVESTIGACIÓN (Para copiar links fácilmente) ---
-    recent = db.obtener_recientes(10)
+    recent = db.obtener_mejores(10)
     if recent:
         console.print(f"\n[bold cyan]🔗 SUMARIO DE INVESTIGACIÓN PROFUNDA:[/]")
         for i, row in enumerate(recent, 1):

@@ -14,9 +14,11 @@ cazador-cli/
 │   └── cazador.db           # Base de Datos SQLite (Resultados persistidos)
 ├── src/                     # Código Fuente y Lógica de Negocio
 │   ├── main.py              # Motor principal (Formal Entry Point)
-│   └── database.py          # Adaptador de persistencia SQLite
+│   ├── database.py          # Adaptador de persistencia SQLite
+│   └── test.py              # Tests unitarios del motor de scoring
 ├── .env.example             # Plantilla de variables de entorno de referencia
 ├── README.md                # Presentación general del proyecto y quick-start
+├── ROADMAP.md               # Mejoras planificadas para la serie de YouTube
 └── requirements.txt         # Dependencias Python (pydantic, requests, rich)
 ```
 

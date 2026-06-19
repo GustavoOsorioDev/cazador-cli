@@ -45,7 +45,7 @@ class Database:
         except Exception as e:
             print(f"Error al guardar en DB: {e}")
 
-    def obtener_recientes(self, limit: int = 10):
+    def obtener_mejores(self, limit: int = 10):
         with sqlite3.connect(self.db_path) as conn:
             conn.row_factory = sqlite3.Row
             cursor = conn.execute("SELECT * FROM oportunidades ORDER BY score_gap DESC LIMIT ?", (limit,))
