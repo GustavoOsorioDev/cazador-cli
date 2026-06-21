@@ -6,6 +6,8 @@ Este documento actúa como la fuente de verdad arquitectónica (Source of Truth)
 
 ```text
 cazador-cli/
+├── .github/workflows/       # CI/CD pipelines (GitHub Actions)
+│   └── ci.yml               # Pipeline de tests automatizado
 ├── .specs/                  # Spec-Driven Development (Contratos y Diseño Técnico)
 │   └── 01_data_contract.md  # Contrato inmutable (Oportunidad) y lógica de scoring
 ├── docs/                    # Documentación Técnica Auxiliar
@@ -13,13 +15,17 @@ cazador-cli/
 ├── db/                      # Persistencia Local
 │   └── cazador.db           # Base de Datos SQLite (Resultados persistidos)
 ├── src/                     # Código Fuente y Lógica de Negocio
-│   ├── main.py              # Motor principal (Formal Entry Point)
+│   ├── cli.py               # Presentación Pura (Typer)
+│   ├── engine.py            # Motor Puro, scoring y red
+│   ├── models.py            # Contratos Inmutables (Pydantic / Firewall ético)
+│   ├── main.py              # Compatibilidad/Stealth RSS
 │   ├── database.py          # Adaptador de persistencia SQLite
-│   └── test.py              # Tests unitarios del motor de scoring
+│   └── test.py              # Suite de 16 tests unitarios (Lógica y Seguridad)
+├── Dockerfile               # Entorno Virtualizado (python:3.11-slim)
 ├── .env.example             # Plantilla de variables de entorno de referencia
 ├── README.md                # Presentación general del proyecto y quick-start
 ├── ROADMAP.md               # Mejoras planificadas para la serie de YouTube
-└── requirements.txt         # Dependencias Python (pydantic, requests, rich)
+└── requirements.txt         # Dependencias Python
 ```
 
 ## Componentes Core del Ecosistema

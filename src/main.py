@@ -21,51 +21,14 @@ from rich.live import Live
 
 # Local imports
 from database import Database
-
-# --- MODELS (Sync with .specs/01_data_contract.md) ---
-class Oportunidad(BaseModel):
-    fuente: str
-    titulo: str
-    comentarios: int = 0
-    votos: int = 0
-    enlace: str
-    dolor: Optional[str] = None
-    score_gap: float = Field(default=0.0, ge=0)  # ge=0: el contrato garantiza que el score nunca es negativo
-    fecha: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
+from engine import calcular_score, PATRONES_DOLOR
+from models import Oportunidad
 
 # --- CONFIGURATION ---
 console = Console()
 db = Database()
-PATRONES_DOLOR = [
-    "struggle", "struggling", "hate", "sucks", "broken", "nightmare", 
-    "tired of", "how do you deal", "why is it so hard to", "mess",
-    "spaghetti", "worst", "help", "giving up", "painful", "frustrated"
-]
 
-# --- LOGIC ---
-def calcular_score(titulo: str, dolor: Optional[str] = None, comentarios: int = 0, votos: int = 0) -> float:
-    """
-    Función pura: recibe datos crudos, devuelve un float.
-    No depende del modelo Oportunidad — es testeable de forma aislada.
-
-    Lógica según Contrato 01:
-    - Con engagement real: (comentarios * 0.4) + (votos * 0.0009), amplificado por patrones.
-    - Modo RSS (engagement = 0): score semántico puro por conteo de PATRONES_DOLOR.
-      Razón: el RSS de Reddit no expone comentarios/votos sin OAuth.
-      El scoring semántico puro mantiene la herramienta funcional en Zero-Quota Mode.
-    """
-    base_score = (comentarios * 0.4) + (votos * 0.0009)
-    coincidencias = sum(
-        1 for patron in PATRONES_DOLOR
-        if patron in (titulo + " " + (dolor or "")).lower()
-    )
-
-    if base_score == 0:
-        # RSS Mode: score semántico puro
-        return round(float(coincidencias), 2)
-
-    multiplier = 1.0 + (coincidencias * 0.5)
-    return round(base_score * multiplier, 2)
+# --- LOGIC --- (calcular_score importado desde engine.py — fuente unica de verdad)
 
 def fetch_reddit_rss(subreddit: str) -> List[Oportunidad]:
     # HACK ESTRATÉGICO EP01: En lugar de /new.rss (basura sin validar)

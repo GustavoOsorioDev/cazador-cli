@@ -12,7 +12,9 @@ import os
 # Asegurar que src/ esté en el path para imports locales
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from main import calcular_score, PATRONES_DOLOR
+from engine import calcular_score, PATRONES_DOLOR
+from models import ScanTarget
+from pydantic import ValidationError
 
 
 def test_zero_engagement_zero_patterns():
@@ -94,6 +96,29 @@ def test_return_type_is_float():
     score = calcular_score("test")
     assert type(score) is float
 
+# --- TESTS DE VALIDACIÓN (Contratos en models.py) ---
+
+def test_validation_gov_blocked():
+    """Validar que dominios .gov lanzan error ético."""
+    try:
+        ScanTarget(url="https://cia.gov/top-secret", query="leak")
+        assert False, "Debería haber bloqueado el dominio .gov"
+    except ValueError as e:
+        assert "[ETICA: BLOQUEADO]" in str(e)
+
+def test_validation_exe_blocked():
+    """Validar que archivos .exe lanzan error de seguridad."""
+    try:
+        ScanTarget(url="http://virus.com/malware.exe", query="payload")
+        assert False, "Debería haber bloqueado la extensión .exe"
+    except ValueError as e:
+        assert "[SEGURIDAD: BLOQUEADO]" in str(e)
+
+def test_validation_clean_url():
+    """Validar que URLs normales pasan sin problemas."""
+    target = ScanTarget(url="https://gustavoosorio.dev", query="ingenieria")
+    assert target.url == "https://gustavoosorio.dev"
+
 
 # --- Runner directo ---
 if __name__ == "__main__":
@@ -111,6 +136,9 @@ if __name__ == "__main__":
         test_partial_pattern_no_match,
         test_all_patterns_count,
         test_return_type_is_float,
+        test_validation_gov_blocked,
+        test_validation_exe_blocked,
+        test_validation_clean_url,
     ]
 
     passed = 0

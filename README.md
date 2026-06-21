@@ -1,9 +1,9 @@
-# 📡 Cazador CLI (v1.0)
+# 📡 Cazador CLI (La Arquitectura Anti-Slop)
 > "Ingeniería real. Sin vibes."
 
-Cazador CLI es un bot de rastreo local diseñado para identificar **anomalías de frustración** en foros masivos. En lugar de especular sobre qué construir, el motor analiza patrones lingüísticos de "dolor" real que usuarios finales están experimentando *ahora mismo*.
+Este repositorio acompaña al **Episodio 1** del canal de YouTube. No es solo un bot de rastreo para foros; es **una demostración de Spec-Driven Development (SDD)**. 
 
-Este es el **Lead Magnet oficial** de la arquitectura [@GustavoOsorioDev](https://github.com/GustavoOsorioDev).
+Si programas asistido por IA, sabes que el mayor riesgo hoy es el "vibe coding": código fluido pero frágil, que explota silenciosamente en producción. Este repositorio demuestra cómo un **Firewall de Contratos (Pydantic)** detiene las alucinaciones costosas de cualquier LLM *antes* de tocar la red.
 
 ---
 
@@ -57,5 +57,14 @@ Este proyecto no es un script de fin de semana; es una pieza de ingeniería modu
 *   **Transparencia:** Consulta la carpeta [`.specs/`](./.specs/) para ver el Spec-Driven Development completo.
 
 ---
-**Build in Public** • Ingeniería real por [@GustavoOsorioDev](https://youtube.com/@GustavoOsorioDev)
 
+## 💎 Infraestructura Recomendada (Deploy & Escala)
+
+Si planeas poner bots impulsados por IA en producción (como este), el hardware y el entorno importan tanto como el código. Esta es la pila tecnológica (CPA Links) que usamos para garantizar que Cazador opere sin fugas de presupuesto:
+
+*   **⚡ Entorno de Código:** [Cursor IDE (Pruébalo gratis)]() — Escribe los contratos Pydantic tú mismo y deja que la IA haga la "carpintería" mundana.
+*   **☁️ Servidor VPS:** [DigitalOcean ($200 Crédito)]() / [Hetzner]() — Despliega los scrapers en Docker. Evita que un error 429 queme la IP de tu casa.
+*   **💾 Base de Datos:** [Supabase]() — Conecta PostgreSQL 1:1 con los esquemas Pydantic del Bot, garantizando Full-Stack Type Safety.
+
+---
+**Build in Public** • Ingeniería real por [@GustavoOsorioDev](https://youtube.com/@GustavoOsorioDev)
